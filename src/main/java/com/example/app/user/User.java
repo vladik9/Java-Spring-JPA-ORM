@@ -1,5 +1,7 @@
 package com.example.app.user;
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +23,7 @@ public class User {
      // default route path used for debugging
      @GetMapping("/")
      public String userFunction() {
+
           return "User page";
      }
 

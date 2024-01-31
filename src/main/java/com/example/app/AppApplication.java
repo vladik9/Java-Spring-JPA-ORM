@@ -22,11 +22,19 @@ public class AppApplication {
 	CommandLineRunner commandLineRunner(UserRepository userRepository) {
 		return args -> {
 			// this or second
-			User newUser = new User("Vlad", "Cor", "em@em.com", 27);
-			userRepository.save(newUser);
 
-			// User user = new User( "Vlad", "Cor", "em@em.com", 27);
-			// userRepository.save(user);
+			User user = new User("Vlad", "Cor", "em@em.com", 27);
+			userRepository.save(user);
+
+			// find
+			userRepository.findById(1L).ifPresentOrElse(us -> {
+				System.out.println("User is in db " + us.toString());
+			}, () -> {
+				System.out.println(" User not found");
+			});
+			// delete
+			userRepository.deleteById(3L);
+
 		};
 	}
 
