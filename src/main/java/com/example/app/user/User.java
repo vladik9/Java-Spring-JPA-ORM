@@ -51,8 +51,7 @@ public class User {
      // The code you provided is a constructor for the `User` class. A constructor is
      // a special method
      // that is used to initialize the object of a class.
-     public User(Long id, String first_name, String second_name, String email, Integer age) {
-          this.id = id;
+     public User(String first_name, String second_name, String email, Integer age) {
           this.first_name = first_name;
           this.second_name = second_name;
           this.email = email;
