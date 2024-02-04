@@ -24,7 +24,7 @@ public class AppApplication {
 			// this or second
 
 			User user = new User("Vlad", "Cor", "em@em.com", 26);
-			userRepository.save(user);
+			// userRepository.save(user);
 			// use optional field that has been declared in userRepository to get a db query
 			// for getting that user whit email
 			String users = userRepository.findByFirstName("Vlad").toString();
@@ -40,6 +40,12 @@ public class AppApplication {
 			System.out.println("User number six is: ");
 			userRepository.findUserById(6L).stream().forEach(System.out::println);
 
+			// using named parameters;
+			userRepository.findUserBySpecialFirstName("Vladd", 26).stream().forEach((u) -> System.out.println(u));
+
+			// deleting records
+
+			System.out.println(userRepository.deleteUserById(14L));
 		};
 	}
 

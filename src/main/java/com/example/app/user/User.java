@@ -16,7 +16,7 @@ import jakarta.persistence.UniqueConstraint;
 @RestController
 @Entity(name = "User") // This tells Hibernate to make a table out of this class
 // this helps to specify table constraints for uniqueness in table
-@Table(name = "user", uniqueConstraints = { @UniqueConstraint(name = "user_email_unique", columnNames = "email") })
+@Table(name = "User", uniqueConstraints = { @UniqueConstraint(name = "user_email_unique", columnNames = "email") })
 public class User {
      // default route path used for debugging
      @GetMapping("/")
@@ -81,7 +81,7 @@ public class User {
       * 
       * @return The method is returning the value of the variable "firstName".
       */
-     public String getfirstName() {
+     public String getFirstName() {
           return firstName;
      }
 
@@ -94,12 +94,12 @@ public class User {
       */
      // The code you provided is defining getter and setter methods for the fields in
      // the `User` class.
-     public void setfirstName(String firstName) {
+     public void setFirstName(String firstName) {
           this.firstName = firstName;
      }
 
      /**
-      * The function "getsecondName" returns the value of the variable
+      * The function "getSecondName" returns the value of the variable
       * "secondName".
       * 
       * @return The method is returning the value of the variable "secondName".
@@ -110,7 +110,7 @@ public class User {
       * 
       * @return The method is returning the value of the variable "secondName".
       */
-     public String getsecondName() {
+     public String getSecondName() {
           return secondName;
      }
 
@@ -129,7 +129,7 @@ public class User {
       *                   methods for the `email` field in the `User`
       *                   person.
       */
-     public void setsecondName(String secondName) {
+     public void setSecondName(String secondName) {
           this.secondName = secondName;
      }
 
