@@ -18,19 +18,12 @@ import jakarta.persistence.UniqueConstraint;
 // this helps to specify table constraints for uniqueness in table
 @Table(name = "User", uniqueConstraints = { @UniqueConstraint(name = "user_email_unique", columnNames = "email") })
 public class User {
-     // default route path used for debugging
-     @GetMapping("/")
-     public String userFunction() {
-
-          return "User page";
-     }
-
      // this is primary key or identifier in DB
      @Id
      // sequence generator
-     @SequenceGenerator(name = "student_sequence", sequenceName = "student_sequence", allocationSize = 1)
+     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
      // this points to sequence generator to generate a value for this table
-     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_sequence")
+     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
      // column is used to specify individual properties for columns in SQL table
      @Column(name = "id", updatable = false)
      private Long id;

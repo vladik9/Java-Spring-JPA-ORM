@@ -1,12 +1,17 @@
 package com.example.app;
 
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.app.UserId.UserId;
+import com.example.app.UserId.UserIdRepository;
 import com.example.app.user.User;
 import com.example.app.user.UserRepository;
+import com.github.javafaker.Faker;
 
 @SpringBootApplication
 public class AppApplication {
@@ -19,36 +24,24 @@ public class AppApplication {
 	// create a user and add it in DB, need to mark as bea as this will be used by
 	// Hibernate to identify it
 	@Bean
-	CommandLineRunner commandLineRunner(UserRepository userRepository) {
+	CommandLineRunner commandLineRunner(UserRepository userRepository, UserIdRepository userIdRepository) {
 		return args -> {
-			// this or second
-
-			// User user = new User("Vlad", "Cor", "em@em.com", 26);
-			// userRepository.save(user);
-			// use optional field that has been declared in userRepository to get a db query
-			// for getting that user whit email
-			// String users = userRepository.findByFirstName("Vlad").toString();
-			// System.out.println(users);
-
-			// System.out.println("Searching by age");
-			// userRepository.findByFirstNameAndAge("Vlad",
-			// 26).stream().forEach(System.out::println);
-
-			// System.out.println("End of file, get all users");
-			// userRepository.getAllUsers().stream().forEach(System.out::println);
-
-			// get user number six
-			// System.out.println("User number six is: ");
-			// userRepository.findUserById(6L).stream().forEach(System.out::println);
-
-			// using named parameters;
-			// userRepository.findUserBySpecialFirstName("Vladd", 26).stream().forEach((u)
-			// -> System.out.println(u));
-
-			// deleting records
-
-			// System.out.println(userRepository.deleteUserById(14L));
+			generateAndSaveFakeUsers(userIdRepository);
 		};
+
+	}
+
+	private void generateAndSaveFakeUsers(UserIdRepository userIdRepository) {
+
+		List<User> userList = AppApplicationFakerUseGenerator.generateFakeUsers();
+
+		for (User user : userList) {
+			Faker faker = new Faker();
+			// generating fake id's and fake user's + saving them
+
+			userIdRepository.save(new UserId(faker.idNumber().valid().substring(0, 7), user));
+		}
+
 	}
 
 }

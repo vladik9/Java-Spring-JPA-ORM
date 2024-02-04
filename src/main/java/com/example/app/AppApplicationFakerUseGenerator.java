@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import com.example.app.user.User;
 import com.example.app.user.UserRepository;
 import com.github.javafaker.Faker;
+import java.util.List;
+import java.util.ArrayList;
 
 @SpringBootApplication
 
@@ -30,16 +32,19 @@ public class AppApplicationFakerUseGenerator {
 
      }
 
-     private void generateFakeUsers(UserRepository userRepository) {
+     public static List<User> generateFakeUsers() {
           Faker faker = new Faker();
-          for (int i = 0; i < 101; i++) {
+          List<User> users = new ArrayList<>();
+          for (int i = 0; i < 10; i++) {
                String firstName = faker.name().firstName();
                String secondName = faker.name().lastName();
                String email = String.format("%s.%s@em.com", firstName, secondName);
                Integer age = faker.number().numberBetween(18, 35);
-               userRepository.save(new User(firstName, secondName, email, age));
-
+               // userRepository.save(new User(firstName, secondName, email, age));
+               users.add(new User(firstName, secondName, email, age));
           }
+          return users;
+
      }
 
 }

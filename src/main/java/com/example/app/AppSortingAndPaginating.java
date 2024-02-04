@@ -24,21 +24,21 @@ public class AppSortingAndPaginating {
      @Bean
      CommandLineRunner commandLineRunnerAppSortingData(UserRepository userRepository) {
           return args -> {
-               System.out.println("Inside of sorting command line runner");
+               // System.out.println("Inside of sorting command line runner");
                // using sorting app run
                // sorting and paginating, using default JPA functionality
-               Sort sort = Sort.by(Sort.Direction.DESC, "firstName");
+               // Sort sort = Sort.by(Sort.Direction.DESC, "firstName");
                // userRepository.findAll(sort).forEach(u ->
                // System.out.println(u.getFirstName()));
 
                // Using pagination
                // 1 page and get 10 results
-               PageRequest pageRequest = PageRequest.of(0, 10, sort);
-               Page<User> page = userRepository.findAll(pageRequest);
+               // PageRequest pageRequest = PageRequest.of(0, 10, sort);
+               // Page<User> page = userRepository.findAll(pageRequest);
 
-               System.out.println(page);
-               page.stream().forEach(
-                         u -> System.out.println(u.getFirstName()));
+               // System.out.println(page);
+               // page.stream().forEach(
+               // u -> System.out.println(u.getFirstName()));
           };
      }
 
