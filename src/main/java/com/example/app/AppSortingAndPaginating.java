@@ -8,8 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-import com.example.app.user.User;
-import com.example.app.user.UserRepository;
+import com.example.app.User.User;
+import com.example.app.User.UserRepository;
 
 @SpringBootApplication
 public class AppSortingAndPaginating {

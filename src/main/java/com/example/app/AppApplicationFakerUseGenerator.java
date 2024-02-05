@@ -5,8 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.example.app.user.User;
-import com.example.app.user.UserRepository;
+import com.example.app.User.User;
+import com.example.app.User.UserRepository;
 import com.github.javafaker.Faker;
 import java.util.List;
 import java.util.ArrayList;

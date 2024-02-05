@@ -7,10 +7,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.app.User.User;
+import com.example.app.User.UserRepository;
 import com.example.app.UserId.UserId;
 import com.example.app.UserId.UserIdRepository;
-import com.example.app.user.User;
-import com.example.app.user.UserRepository;
 import com.github.javafaker.Faker;
 
 @SpringBootApplication

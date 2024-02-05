@@ -1,4 +1,4 @@
-package com.example.app.user;
+package com.example.app.User;
 
 import java.util.List;
 import java.util.Optional;

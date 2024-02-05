@@ -1,6 +1,6 @@
 package com.example.app.UserId;
 
-import com.example.app.user.User;
+import com.example.app.User.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
