@@ -32,10 +32,10 @@ public class AppApplicationFakerUseGenerator {
 
      }
 
-     public static List<User> generateFakeUsers() {
+     public static List<User> generateFakeUsers(int records) {
           Faker faker = new Faker();
           List<User> users = new ArrayList<>();
-          for (int i = 0; i < 10; i++) {
+          for (int i = 0; i < records; i++) {
                String firstName = faker.name().firstName();
                String secondName = faker.name().lastName();
                String email = String.format("%s.%s@em.com", firstName, secondName);

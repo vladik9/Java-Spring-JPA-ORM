@@ -1,7 +1,6 @@
 package com.example.app.User;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.app.UserCode.UserCode;
 
 import jakarta.persistence.Column;
 //jakarta app
@@ -9,11 +8,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
-@RestController
 @Entity(name = "User") // This tells Hibernate to make a table out of this class
 // this helps to specify table constraints for uniqueness in table
 @Table(name = "User", uniqueConstraints = { @UniqueConstraint(name = "user_email_unique", columnNames = "email") })
@@ -35,6 +34,22 @@ public class User {
      private String email;
      @Column(name = "age", updatable = true, nullable = false)
      private Integer age;
+     // creating bidirectional relation user and user card
+     @OneToOne(mappedBy = "user", orphanRemoval = true) // orphanRemoval = true will delete parent entity and also child
+                                                        // entity, if we have it on false and we have a relation between
+                                                        // entities, once we will try to remove one of them nothing will
+                                                        // be deleted as hibernate will avoid delete entity that is
+                                                        // currently connected to second one
+     private UserCode userCode;
+     // here will add one to many
+
+     // @OneToMany(cascade = CascadeType.ALL)
+     // @JoinColumn(name = "user_accounts", referencedColumnName = "id")
+     // private List<Account> accounts;
+
+     public UserCode getUserCode() {
+          return userCode;
+     }
 
      // The code `public User() {}` is a default constructor for the `User` class. A
      // constructor is a
@@ -42,9 +57,6 @@ public class User {
      public User() {
      }
 
-     // The code you provided is a constructor for the `User` class. A constructor is
-     // a special method
-     // that is used to initialize the object of a class.
      public User(String firstName, String secondName, String email, Integer age) {
           this.firstName = firstName;
           this.secondName = secondName;
@@ -52,133 +64,46 @@ public class User {
           this.age = age;
      }
 
-     // The code you provided is defining getter and setter methods for the fields in
-     // the `User` class.
      public Long getId() {
           return id;
      }
 
-     /**
-      * The function sets the value of the "id" variable.
-      * 
-      * @param id The "id" parameter is an Integer type, which is used to set the
-      *           value of the "id"
-      *           variable in the class.
-      */
      public void setId(Long id) {
           this.id = id;
      }
 
-     /**
-      * The function returns the value of the variable "firstName".
-      * 
-      * @return The method is returning the value of the variable "firstName".
-      */
      public String getFirstName() {
           return firstName;
      }
 
-     /**
-      * The function sets the value of the "firstName" variable.
-      * 
-      * @param firstName The parameter "firstName" is a String that represents the
-      *                  first name of a
-      *                  person.
-      */
-     // The code you provided is defining getter and setter methods for the fields in
-     // the `User` class.
      public void setFirstName(String firstName) {
           this.firstName = firstName;
      }
 
-     /**
-      * The function "getSecondName" returns the value of the variable
-      * "secondName".
-      * 
-      * @return The method is returning the value of the variable "secondName".
-      */
-
-     /**
-      * The function returns the value of the secondName variable.
-      * 
-      * @return The method is returning the value of the variable "secondName".
-      */
      public String getSecondName() {
           return secondName;
      }
 
-     /**
-      * The function sets the value of the secondName variable.
-      * 
-      * @param secondName The parameter "secondName" is a String that represents
-      *                   the second name of a
-      *                   person.
-      */
-     /**
-      * The function sets the value of the secondName variable.
-      * 
-      * @param secondName The parameter "secondName" is a String that represents
-      *                   the second name of a
-      *                   methods for the `email` field in the `User`
-      *                   person.
-      */
      public void setSecondName(String secondName) {
           this.secondName = secondName;
      }
 
-     /**
-      * The getEmail() function returns the email address.
-      * 
-      * @return The email value is being returned.
-      */
-     /**
-      * The getEmail() function returns the email address.
-      * 
-      * @return The email value is being returned.
-      */
      public String getEmail() {
           return email;
      }
 
-     /**
-      * The function sets the email property of an object to the provided email
-      * value.
-      * 
-      * @param email The email parameter is a string that represents an email
-      *              address.
-      */
      public void setEmail(String email) {
           this.email = email;
      }
 
-     /**
-      * The function "getAge" returns the age as an Integer.
-      * 
-      * @return The method is returning an Integer value, which is the age.
-      */
      public Integer getAge() {
           return age;
      }
 
-     /**
-      * The function sets the age of an object.
-      * 
-      * @param age The "age" parameter is an Integer that represents the age of an
-      *            object or entity.
-      */
      public void setAge(Integer age) {
           this.age = age;
      }
 
-     /**
-      * The toString() function returns a string representation of a User object.
-      * 
-      * @return The toString() method is returning a string representation of a User
-      *         object. The string
-      *         includes the values of the id, firstName, secondName, email, and
-      *         age properties of the User
-      *         object.
-      */
      @Override
      public String toString() {
           return "User [id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", email=" + email
