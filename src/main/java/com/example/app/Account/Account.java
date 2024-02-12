@@ -1,4 +1,4 @@
-package com.example.app.account;
+package com.example.app.Account;
 
 import com.example.app.User.User;
 
@@ -30,6 +30,7 @@ public class Account {
      private String created_date;
      @Column(name = "account_amount", nullable = false)
      private Long account_amount;
+
      @ManyToOne
      @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "user_id_fk"))
      private User user;

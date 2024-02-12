@@ -1,5 +1,8 @@
 package com.example.app.User;
 
+import java.util.List;
+
+import com.example.app.Account.Account;
 import com.example.app.UserCode.UserCode;
 
 import jakarta.persistence.Column;
@@ -8,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -41,11 +45,12 @@ public class User {
                                                         // be deleted as hibernate will avoid delete entity that is
                                                         // currently connected to second one
      private UserCode userCode;
-     // here will add one to many
 
-     // @OneToMany(cascade = CascadeType.ALL)
-     // @JoinColumn(name = "user_accounts", referencedColumnName = "id")
-     // private List<Account> accounts;
+     // here will add one to many
+     // this will make sure we have bidirectional relation from account to user and
+     // back
+     @OneToMany(mappedBy = "account")
+     private List<Account> accounts;
 
      public UserCode getUserCode() {
           return userCode;

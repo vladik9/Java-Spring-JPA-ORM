@@ -9,12 +9,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import com.example.app.Account.Account;
+import com.example.app.Account.AccountRepository;
 import com.example.app.User.User;
 import com.example.app.User.UserRepository;
 import com.example.app.UserCode.UserCode;
 import com.example.app.UserCode.UserCodeRepository;
-import com.example.app.account.Account;
-import com.example.app.account.AccountRepository;
 import com.github.javafaker.Faker;
 
 @SpringBootApplication

@@ -1,4 +1,4 @@
-package com.example.app.account;
+package com.example.app.Account;
 
 import org.springframework.data.repository.CrudRepository;
 
