@@ -49,7 +49,7 @@ public class User {
      // here will add one to many
      // this will make sure we have bidirectional relation from account to user and
      // back
-     @OneToMany(mappedBy = "account")
+     @OneToMany(mappedBy = "user")
      private List<Account> accounts;
 
      public UserCode getUserCode() {
