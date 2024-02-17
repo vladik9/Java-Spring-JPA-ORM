@@ -30,20 +30,25 @@ public class User {
      // column is used to specify individual properties for columns in SQL table
      @Column(name = "id", updatable = false)
      private Long id;
+
      @Column(name = "firstName", updatable = true, nullable = false, columnDefinition = "TEXT")
      private String firstName;
+
      @Column(name = "secondName", updatable = true, nullable = false, columnDefinition = "TEXT")
      private String secondName;
+
      @Column(name = "email", updatable = false, nullable = false, columnDefinition = "TEXT", unique = true)
      private String email;
+
      @Column(name = "age", updatable = true, nullable = false)
      private Integer age;
-     // creating bidirectional relation user and user card
-     @OneToOne(mappedBy = "user", orphanRemoval = true) // orphanRemoval = true will delete parent entity and also child
-                                                        // entity, if we have it on false and we have a relation between
-                                                        // entities, once we will try to remove one of them nothing will
-                                                        // be deleted as hibernate will avoid delete entity that is
-                                                        // currently connected to second one
+     // creating bidirectional relation user and user code
+     @OneToOne(mappedBy = "user", orphanRemoval = true)
+     // orphanRemoval = true will delete parent entity and also child
+     // entity, if we have it on false and we have a relation between
+     // entities, once we will try to remove one of them nothing will
+     // be deleted as hibernate will avoid delete entity that is
+     // currently connected to second one
      private UserCode userCode;
 
      // here will add one to many

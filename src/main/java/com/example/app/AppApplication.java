@@ -6,11 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
-import com.example.app.Account.Account;
 import com.example.app.Account.AccountRepository;
+import com.example.app.Job.JobRepository;
 import com.example.app.User.User;
 import com.example.app.User.UserRepository;
 import com.example.app.UserCode.UserCode;
@@ -29,7 +27,7 @@ public class AppApplication {
 	// Hibernate to identify it
 	@Bean
 	CommandLineRunner commandLineRunner(UserRepository userRepository, UserCodeRepository userIdRepository,
-			AccountRepository accountRepository) {
+			AccountRepository accountRepository, JobRepository jobRepository) {
 		return args -> {
 			// generateAndSaveFakeUsers(userIdRepository, 10);
 			// PageRequest pageRequest = PageRequest.of(0, 5);
@@ -39,12 +37,16 @@ public class AppApplication {
 			// userRepository.findById(1L).ifPresent((u) -> System.out.println(u));
 			// System.out.println("UserId");
 			// userIdRepository.findById(1L).ifPresent((u) -> System.out.println(u))
-			User newUser = new User("El Viva", "Macho", "el.viva@em.com", 34);
-			userRepository.save(newUser);
-			Account newAccount = new Account("12.12.2222", 100L, newUser);
-			System.out.println(newAccount);
-			accountRepository.save(newAccount);
+			// User newUser = new User("El Viva", "Macho", "el.viva@em.com", 34);
+			// userRepository.save(newUser);
+			// Account newAccount = new Account("12.12.2222", 100L, newUser);
+			// System.out.println(newAccount);
+			// accountRepository.save(newAccount);
+			// create a user
+			// User user = new User("El Viva", "Macho", "XXXXXXXXXXXXXX", 34);
+			// jobRepository.save(new Job("DishWasher", "14.12.24", 2000L, user));
 
+			jobRepository.findById(2L).ifPresent((u) -> System.out.println("User is: " + u));
 		};
 
 	}
