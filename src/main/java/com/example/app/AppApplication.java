@@ -21,7 +21,7 @@ public class AppApplication {
 
 	// this will run after app starts and will run a cmd line runner that will
 	// create a user and add it in DB, need to mark as bea as this will be used by
-	// Hibernate to identify it.
+	// Hibernate to identify it
 	@Bean
 	CommandLineRunner commandLineRunner(CarRepository carRepository, InputReader inputInputReader , CarVINRepository carVINRepository) {
 		return args -> {
