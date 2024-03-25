@@ -37,8 +37,8 @@ public class Car {
 
     @Column(name = "number_of_seats", nullable = true, updatable = true)
     private Integer numberOfSeats;
-
-    @OneToOne(cascade = CascadeType.ALL)
+    //one car have one VIN ID, and in CarVIN this is marked as bidirectional
+    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL)
     @JoinColumn(name = "car_vin_id", referencedColumnName = "id", nullable = false, updatable = false)
     private CarVIN carVIN;
 
