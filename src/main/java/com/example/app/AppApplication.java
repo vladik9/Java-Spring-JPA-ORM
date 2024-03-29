@@ -1,10 +1,11 @@
 package com.example.app;
 
+import com.example.Utils.Utils;
 import com.example.app.Car.Car;
 import com.example.app.Car.CarRepository;
-import com.example.app.CarVIN.CarVIN;
-import com.example.app.CarVIN.CarVINRepository;
 import com.example.app.Driver.DriverRepository;
+import com.example.app.Vin.Vin;
+import com.example.app.Vin.VinRepository;
 import com.github.javafaker.Faker;
 import java.util.Random;
 import org.springframework.boot.CommandLineRunner;
@@ -26,7 +27,7 @@ public class AppApplication {
 	// create a user and add it in DB, need to mark as bea as this will be used by
 	// Hibernate to identify it
 	@Bean
-	CommandLineRunner commandLineRunner(CarRepository carRepository, InputReader inputInputReader , CarVINRepository carVINRepository, DriverRepository driverRepository) {
+	CommandLineRunner commandLineRunner(CarRepository carRepository, InputReader inputInputReader , VinRepository vinRepository, DriverRepository driverRepository) {
 		return args -> {
 			int option=0;
 			do {
@@ -45,7 +46,7 @@ public class AppApplication {
 					break;
 					case 1: {
 						try {
-							carRepository.save(readInputCar(inputInputReader));
+							vinRepository.save(readInputCar(inputInputReader));
 						} catch (DataAccessException ex) {
 							System.out.println(ex.getCause().getMessage());
 						}
@@ -65,9 +66,10 @@ public class AppApplication {
 								year = faker.number().numberBetween(1990, 2023 + 1);
 								number_of_seats = faker.number().numberBetween(2, 4 + 1);
 								VIN = faker.bothify("?????################").toUpperCase();
-								CarVIN carVIN = new CarVIN(VIN);
-								carRepository.save(new Car(carName, carColor, year, number_of_seats, carVIN));
-
+								Car car= new Car(carName, carColor, year, number_of_seats);
+								// carRepository.save(car);
+								Vin carVIN = new Vin(VIN, car);
+								vinRepository.save(carVIN);
 							}
 						} catch (DataAccessException ex) {
 							System.out.println(ex.getCause().getMessage());
@@ -101,8 +103,7 @@ public class AppApplication {
 			InputReader inputReader() {
 				return new InputReader();
 			}
-
-			private static Car readInputCar(InputReader inputInputReader) {
+			private static Vin readInputCar(InputReader inputInputReader ) {
 				Faker faker = new Faker();
 				String name, color;
 				Integer year, number_of_seats;
@@ -112,26 +113,16 @@ public class AppApplication {
 				number_of_seats = Integer.parseInt(inputInputReader.readInput("Enter car number of seats: "));
 			
 				String VIN = faker.bothify("?????################").toUpperCase();
-				CarVIN carVIN = new CarVIN(VIN);
-				return new Car(name, color, year, number_of_seats, carVIN );
+				Car car = new Car(name, color, year, number_of_seats);
+				Vin carVIN = new Vin(VIN, car);
+				return carVIN;
 			}
-
-			private static CarVIN readInputCarVin(InputReader inputReader) {
-				Faker faker = new Faker();
-				String VIN = faker.bothify("?????################").toUpperCase();
-				System.out.println("Generated VIN: " + VIN);
-				return new CarVIN(VIN);
-			}
-			
-			private static final String[] CAR_BRANDS = {
-				"Toyota", "Honda", "Ford", "Chevrolet", "BMW", "Mercedes-Benz", "Audi",
-				"Lexus", "Subaru", "Volkswagen", "Tesla", "Hyundai", "Nissan", "Mazda"
-				// Add more car brands as needed
-			};
+ 
+	 
    private static String generateFakeCarName() {
         Random random = new Random();
-        int index = random.nextInt(CAR_BRANDS.length);
-        return CAR_BRANDS[index];
+        int index = random.nextInt(Utils.CAR_BRANDS.length);
+        return Utils.CAR_BRANDS[index].toString();
     }
 
 }
