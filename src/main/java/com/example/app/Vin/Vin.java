@@ -1,4 +1,5 @@
 package com.example.app.Vin;
+
 import com.example.app.Car.Car;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -12,11 +13,9 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
-
-
 @Entity(name = "Vin")
 @Table(name = "vin", uniqueConstraints = {
-    @UniqueConstraint(name = "vin_unique_constraint", columnNames = "vin")
+        @UniqueConstraint(name = "vin_unique_constraint", columnNames = "vin")
 })
 public class Vin {
 
@@ -32,13 +31,14 @@ public class Vin {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     public Car car;
-    
+
     public Vin() {
     }
 
     public Vin(String vin, Car car) {
         this.vin = vin;
         this.car = car;
+
     }
 
     public Long getId() {
@@ -49,7 +49,6 @@ public class Vin {
         return vin;
     }
 
-    
     public void setVin(String vin) {
         this.vin = vin;
     }
@@ -64,6 +63,7 @@ public class Vin {
 
     @Override
     public String toString() {
-        return "VIN [id=" + id + ", vin=" + vin + "]";
+        return "Vin [vin=" + vin + ", car=" + car + "]";
     }
+
 }
