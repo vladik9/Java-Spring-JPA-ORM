@@ -6,9 +6,12 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -37,14 +40,14 @@ public class Car {
 
   @Column(name = "number_of_seats", nullable = true, updatable = true)
   private Integer numberOfSeats;
-
-  @OneToOne(fetch = FetchType.LAZY, mappedBy = "car", cascade = CascadeType.ALL)
+  // relation part
+  // Car<->Vin(owning entity) One Car one Vin num
+  @OneToOne(fetch = FetchType.LAZY, mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
   private Vin vin;
-
-  // here
-  // @ManyToOne(cascade = CascadeType.ALL)
-  // @JoinColumn(name = "driver_id", referencedColumnName = "id")
-  // private Driver driver;
+  // One Car has one Driver, but one Driver can have multiple Cars
+  @ManyToOne
+  @JoinColumn(name = "driver_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "driver_car_fk"))
+  private Driver driver;
 
   public Car() {
   }
@@ -105,12 +108,12 @@ public class Car {
     this.numberOfSeats = numberOfSeats;
   }
 
-  public Vin getCarVIN() {
-    return vin;
+  public Driver getDriver() {
+    return driver;
   }
 
-  public void setCarVIN(Vin vin) {
-    this.vin = vin;
+  public void setDriver(Driver driver) {
+    this.driver = driver;
   }
 
   @Override

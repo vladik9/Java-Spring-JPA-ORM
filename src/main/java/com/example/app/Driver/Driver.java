@@ -6,13 +6,18 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "Driver")
@@ -32,12 +37,12 @@ public class Driver {
   @Column(name = "age", updatable = true, nullable = false)
   private Integer age;
 
-  @Column(name = "experience", updatable = true, nullable = false)
+  @Column(name = "yearsOfExperience", updatable = true, nullable = false)
   private Integer yearsOfExperience;
-  // here
-  // @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, fetch =
-  // FetchType.EAGER)
-  // private Set<Car> cars;
+  // relation part
+  // One Car has one Driver, but one Driver can have multiple Cars
+  @OneToMany(mappedBy = "driver", orphanRemoval = true, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+  private Set<Car> cars = new HashSet<Car>();
 
   public Driver() {
   }
@@ -86,6 +91,30 @@ public class Driver {
 
   public void setYearsOfExperience(Integer yearsOfExperience) {
     this.yearsOfExperience = yearsOfExperience;
+  }
+
+  public Set<Car> getCars() {
+    return cars;
+  }
+
+  public void setCars(Set<Car> cars) {
+    this.cars = cars;
+  }
+
+  // add cars into set and set driver
+  public void addCar(Car car) {
+    if (!this.cars.contains(car)) {
+      cars.add(car);
+      car.setDriver(this);
+    }
+  }
+
+  // remove car from set and set driver to null
+  public void removeCar(Car car) {
+    if (this.cars.contains(car)) {
+      this.cars.remove(car);
+      car.setDriver(null);
+    }
   }
 
   @Override

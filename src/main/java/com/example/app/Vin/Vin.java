@@ -4,6 +4,7 @@ import com.example.app.Car.Car;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,17 +28,19 @@ public class Vin {
 
     @Column(name = "vin", updatable = false, nullable = false, columnDefinition = "TEXT")
     private String vin;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    // relation part
+    // Car<->Vin(owning entity)
+    // foreignKey used to rename join column name, control name database set to join
+    // column
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "car_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "car_id"))
     public Car car;
 
     public Vin() {
     }
 
-    public Vin(String vin, Car car) {
+    public Vin(String vin) {
         this.vin = vin;
-        this.car = car;
 
     }
 
