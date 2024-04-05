@@ -1,14 +1,12 @@
 package com.example.app.Vin;
 
 import com.example.app.Car.Car;
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -26,26 +24,17 @@ public class Vin {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "vin", updatable = false, nullable = false, columnDefinition = "TEXT")
+    @Column(name = "vin", nullable = false, updatable = true)
     private String vin;
-    // relation part
-    // Car<->Vin(owning entity)
-    // foreignKey used to rename join column name, control name database set to join
-    // column
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "car_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "car_id"))
-    public Car car;
+
+    @OneToOne(mappedBy = "vin")
+    private Car car;
 
     public Vin() {
     }
 
     public Vin(String vin) {
         this.vin = vin;
-
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getVin() {
@@ -56,17 +45,9 @@ public class Vin {
         this.vin = vin;
     }
 
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
     @Override
     public String toString() {
-        return "Vin [vin=" + vin + ", car=" + car + "]";
+        return "Vin [id=" + id + ", vin=" + vin + "]";
     }
 
 }
