@@ -48,7 +48,7 @@ public class Driver {
   @OneToMany(mappedBy = "driver", orphanRemoval = true, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
   private List<Car> cars = new ArrayList<>();
 
-  @ManyToMany
+  @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
   @JoinTable(name = "driver_category_list", joinColumns = @JoinColumn(name = "driver_id"), foreignKey = @ForeignKey(name = "driver_categories_fk"), inverseJoinColumns = @JoinColumn(name = "driver_categories_id"))
   private Set<DrivingCategories> categories = new HashSet<>();
 
