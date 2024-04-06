@@ -68,26 +68,26 @@ public class AppApplication {
 					// Option 2: Create Driver
 					case 2: {
 						Driver driver = Utils.generateFakeDriver();
-						List<Car> cars = new ArrayList<>();
+						// List<Car> cars = new ArrayList<>();
 
-						driverRepository.save(driver);
+						// driverRepository.save(driver);
 						DrivingCategories drivingCategories = Utils.generateFakeLicenseCategory();
 						drivingCategoriesRepository.save(drivingCategories);
-
-						for (int i = 0; i < new Random().nextInt(); i++) {
+						int iterations = new Random().nextInt(20) + 1;
+						for (int i = 0; i < iterations; i++) {
 							Car car = Utils.generateFakeCar();
 							Vin vin = Utils.generateFakeVin();
 
 							car.setDriver(driver);
 							car.setVin(vin);
-							cars.add(car);
+							driver.addCar(car);
 							System.out.println("Car: " + car + " Vin: " + vin + " Driver: " + driver);
 
 						}
 
 						driver.addCategories(drivingCategories);
-						driver.setCars(cars);
-						driver.setNumberOfDroveCars(cars.size());
+						// driver.setCars(cars);
+						driver.setNumberOfDroveCars(driver.getCars().size());
 						driverRepository.save(driver);
 						break;
 					}
