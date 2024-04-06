@@ -92,6 +92,9 @@ public class Car {
     this.brand = model;
   }
 
+  // used from Driver addCar method to set
+  // driver instance and in this way to create bidirectional
+  // relationship between Car and Driver
   public void setDriver(Driver driver) {
     this.driver = driver;
   }

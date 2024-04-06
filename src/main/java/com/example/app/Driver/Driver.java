@@ -45,7 +45,7 @@ public class Driver {
   @Column(name = "number_of_drove_cars", updatable = true, nullable = false)
   private Integer numberOfDroveCars;
 
-  @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "driver", orphanRemoval = true, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
   private List<Car> cars = new ArrayList<>();
 
   @ManyToMany
@@ -86,11 +86,23 @@ public class Driver {
     this.drivingExperience = drivingExperience;
   }
 
+  // this will set both, will add car in
+  // to cars and will set driver to current
+  // driver we working with
   public void addCar(Car car) {
-    if (!cars.contains(car)) {
+    if (!this.cars.contains(car)) {
       this.cars.add(car);
+      car.setDriver(this);
     }
 
+  }
+
+  // opposite here, removing cars from driver and set driver to null
+  public void removeCar(Car car) {
+    if (this.cars.contains(car)) {
+      this.cars.remove(car);
+      car.setDriver(null);
+    }
   }
 
   public Car getCar(Integer index) {
