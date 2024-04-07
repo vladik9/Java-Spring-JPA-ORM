@@ -1,15 +1,17 @@
 package com.example.Utils;
 
+import com.example.app.InputReader;
 import com.example.app.Car.Car;
 import com.example.app.Driver.Driver;
-import com.example.app.DrivingCategories.DrivingCategories;
-import com.example.app.InputReader;
+import com.example.app.License.License;
+import com.example.app.Passenger.Passenger;
 import com.example.app.Vin.Vin;
 import com.github.javafaker.Faker;
 
-import java.util.HashSet;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 public class Utils {
   // The line `public static final CarBrand[] CAR_BRANDS = CarBrand.values();` is
@@ -19,7 +21,8 @@ public class Utils {
   // constants in the order they are declared. So, in this case, `CAR_BRANDS` will
   // contain all the car brands defined in the `CarBrand` enum.
   private static final CarBrand[] CAR_BRANDS = CarBrand.values();
-  private static final LicenseCategory[] licenseCategory = LicenseCategory.values();
+  private static final LicenseType[] licenseTypes = LicenseType.values();
+  private static final Genders[] genders = Genders.values();
   private static final Faker faker = new Faker();
   private static final InputReader inputReader = new InputReader();
   private static Random random = new Random();
@@ -33,15 +36,16 @@ public class Utils {
     System.out.println("From Valid options:");
     System.out.println("Option 0: Exit");
     System.out.println("####Create#####");
-    System.out.println("Option 1: Create Car");
-    System.out.println("Option 2: Create Driver");
-    System.out.println("Option 3: Create Vin");
-    System.out.println("Option 4: Create Driver Category");
-    System.out.println("####Get#####");
-    System.out.println("Option 5: Get Car");
-    System.out.println("Option 6: Get Driver");
-    System.out.println("Option 7: Get Vin");
-    System.out.println("Option 8: Get Driver Category");
+    System.out.println("Option 1: Create one Entity");
+    System.out.println("Option 2: Create X Entities");
+    // System.out.println("Option 2: Create Driver");
+    // System.out.println("Option 3: Create Vin");
+    // System.out.println("Option 4: Create Driver Category");
+    // System.out.println("####Get#####");
+    // System.out.println("Option 5: Get Car");
+    // System.out.println("Option 6: Get Driver");
+    // System.out.println("Option 7: Get Vin");
+    // System.out.println("Option 8: Get Driver Category");
     System.out.println("####################\n");
 
   }
@@ -55,34 +59,46 @@ public class Utils {
    *         brand
    *         from the `CAR_BRANDS` array in the `Utils` class.
    */
-  public static String generateFakeCarName() {
+  public static String generateCarName() {
     int index = random.nextInt(Utils.CAR_BRANDS.length);
     return Utils.CAR_BRANDS[index].toString();
   }
 
+  public static List<LicenseType> generateLicenseCategory() {
+    List<LicenseType> drivingCategories = new ArrayList<LicenseType>();
+    for (int i = 0; i < 4; i++) {
+      int index = random.nextInt(licenseTypes.length);
+      drivingCategories.add(licenseTypes[index]);
+    }
+    return drivingCategories;
+  }
+
   // ##################################
   // generator of Cars, Drivers and Vin's
-  public static Car generateFakeCar() {
-    return new Car(Utils.generateFakeCarName(), faker.color().name().toUpperCase(),
+  public static Car generateCar() {
+    return new Car(Utils.generateCarName(), faker.color().name().toUpperCase(),
         faker.number().numberBetween(1990, 2023 + 1), faker.number().numberBetween(2, 4 + 1));
   }
 
-  public static Driver generateFakeDriver() {
+  public static Driver generateDriver() {
     return new Driver(faker.name().fullName(), faker.number().numberBetween(18, 60),
         faker.number().numberBetween(2, 10));
   }
 
-  public static Vin generateFakeVin() {
+  public static Vin generateVin() {
     return new Vin(faker.bothify("?????################").toUpperCase());
   }
 
-  public static DrivingCategories generateFakeLicenseCategory() {
-    Set<LicenseCategory> drivingCategories = new HashSet<>();
-    for (int i = 0; i < 4; i++) {
-      int index = random.nextInt(licenseCategory.length);
-      drivingCategories.add(licenseCategory[index]);
-    }
-    return new DrivingCategories(drivingCategories);
+  public static License generateLicenses() {
+    return new License(faker.bothify("################"), LocalDate.now(),
+        LocalDate.now().plusYears(10), generateLicenseCategory());
+  }
+
+  public static Passenger generatePassenger() {
+    return new Passenger(
+        faker.name().fullName(),
+        faker.number().numberBetween(18, 60),
+        genders[faker.random().nextInt(genders.length)].toString());
   }
   // ##################################
   // ##################################

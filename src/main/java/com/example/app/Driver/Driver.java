@@ -4,10 +4,10 @@ import jakarta.persistence.ForeignKey;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.example.app.Car.Car;
-import com.example.app.DrivingCategories.DrivingCategories;
+import com.example.app.License.License;
+import com.example.app.Passenger.Passenger;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -19,9 +19,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import java.util.Set;
 
 @Entity(name = "Driver")
 @Table(name = "driver", uniqueConstraints = {
@@ -35,39 +37,44 @@ public class Driver {
   private Long id;
 
   @Column(name = "name", nullable = false, updatable = true)
-  private String driverName;
+  private String name;
 
   @Column(name = "age", updatable = true, nullable = false)
   private Integer age;
 
-  @Column(name = "drivingExperience", updatable = true, nullable = false)
-  private Integer drivingExperience;
-  @Column(name = "number_of_drove_cars", updatable = true, nullable = false)
-  private Integer numberOfDroveCars;
+  @Column(name = "experience", updatable = true, nullable = false)
+  private Integer experience;
 
-  @OneToMany(mappedBy = "driver", orphanRemoval = true, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-  private List<Car> cars = new ArrayList<>();
+  @Column(name = "driven_cars_number", updatable = true, nullable = false)
+  private Integer drivenCarsNumber;
+
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "license_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "license_id_fk"))
+  private License license;
+
+  @OneToMany(mappedBy = "driver", orphanRemoval = true, cascade = CascadeType.ALL)
+  private List<Passenger> passengers = new ArrayList<>();
 
   @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-  @JoinTable(name = "driver_category_list", joinColumns = @JoinColumn(name = "driver_id"), foreignKey = @ForeignKey(name = "driver_categories_fk"), inverseJoinColumns = @JoinColumn(name = "driver_categories_id"))
-  private Set<DrivingCategories> categories = new HashSet<>();
+  @JoinTable(name = "drivenCarList", joinColumns = @JoinColumn(name = "driver_id"), foreignKey = @ForeignKey(name = "driver_list_id_fk"), inverseJoinColumns = @JoinColumn(name = "car_id"))
+  private Set<Car> drivenCarsList = new HashSet<>();
 
   public Driver() {
   }
 
   public Driver(String driverName, Integer age, Integer drivingExperience) {
-    this.driverName = driverName;
+    this.name = driverName;
     this.age = age;
-    this.drivingExperience = drivingExperience;
-    this.numberOfDroveCars = 0;
+    this.experience = drivingExperience;
+    this.drivenCarsNumber = 0;
   }
 
-  public String getDriverName() {
-    return driverName;
+  public String getName() {
+    return name;
   }
 
-  public void setDriverName(String driverName) {
-    this.driverName = driverName;
+  public void setName(String driverName) {
+    this.name = driverName;
   }
 
   public Integer getAge() {
@@ -78,70 +85,92 @@ public class Driver {
     this.age = age;
   }
 
-  public Integer getDrivingExperience() {
-    return drivingExperience;
+  public Integer getExperience() {
+    return experience;
   }
 
-  public void setDrivingExperience(Integer drivingExperience) {
-    this.drivingExperience = drivingExperience;
+  public void setExperience(Integer drivingExperience) {
+    this.experience = drivingExperience;
   }
 
-  // this will set both, will add car in
-  // to cars and will set driver to current
-  // driver we working with
-  public void addCar(Car car) {
-    if (!this.cars.contains(car)) {
-      this.cars.add(car);
-      car.setDriver(this);
+  public void addPassengers(Passenger passenger) {
+    if (!this.passengers.contains(passenger)) {
+      this.passengers.add(passenger);
+      passenger.setDriver(this);
     }
 
   }
 
   // opposite here, removing cars from driver and set driver to null
-  public void removeCar(Car car) {
-    if (this.cars.contains(car)) {
-      this.cars.remove(car);
-      car.setDriver(null);
+  public void removePassenger(Passenger passenger) {
+    if (this.passengers.contains(passenger)) {
+      this.passengers.remove(passenger);
+      passenger.setDriver(null);
     }
   }
 
-  public Car getCar(Integer index) {
-    if (index < 0 || index >= this.cars.size()) {
+  public Passenger getPassenger(Integer index) {
+    if (index < 0 || index >= this.passengers.size()) {
       return null;
     }
-    Car car = this.cars.get(index);
-    return car;
+    Passenger passenger = this.passengers.get(index);
+    return passenger;
 
   }
 
-  public List<Car> getCars() {
-    return cars;
+  public List<Passenger> getPassengers() {
+    return this.passengers;
   }
 
-  public void setCars(List<Car> cars) {
-    this.cars = cars;
+  public void setPassengers(List<Passenger> passengers) {
+    this.passengers = passengers;
   }
 
-  public Set<DrivingCategories> getCategories() {
-    return categories;
+  public Integer getDrivenCarsNumber() {
+    return drivenCarsNumber;
   }
 
-  public void addCategories(DrivingCategories categoryToAdd) {
-    this.categories.add(categoryToAdd);
+  public void setDrivenCarsNumber(Integer carsIsDriving) {
+    this.drivenCarsNumber = carsIsDriving;
   }
 
-  public Integer getNumberOfDroveCars() {
-    return numberOfDroveCars;
+  public License getLicense() {
+    return license;
   }
 
-  public void setNumberOfDroveCars(Integer carsIsDriving) {
-    this.numberOfDroveCars = carsIsDriving;
+  public void setLicense(License license) {
+    this.license = license;
+  }
+
+  public Set<Car> getCarsList() {
+    return drivenCarsList;
+  }
+
+  public void setCarList(Set<Car> cars) {
+    this.drivenCarsList = cars;
+    this.drivenCarsNumber = cars.size();
+  }
+
+  public void addCarsToDrivenList(Car car) {
+    if (!drivenCarsList.contains(car)) {
+      drivenCarsList.add(car);
+      car.getDrivers().add(this);
+      this.drivenCarsNumber++;
+    }
+  }
+
+  public void removeCarsToDrivenList(Car car) {
+    if (drivenCarsList.contains(car)) {
+      drivenCarsList.remove(car);
+      car.getDrivers().remove(this);
+      this.drivenCarsNumber--;
+    }
   }
 
   @Override
   public String toString() {
-    return "Driver [id=" + id + ", driverName=" + driverName + ", age=" + age + ", drivingExperience="
-        + drivingExperience + "]";
+    return "Driver [id=" + id + ", driverName=" + name + ", age=" + age + ", drivingExperience="
+        + experience + "]";
   }
 
 }

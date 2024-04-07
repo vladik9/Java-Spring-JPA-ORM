@@ -11,11 +11,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "Car")
 @Table(name = "car", uniqueConstraints = {
@@ -45,9 +47,9 @@ public class Car {
   @JoinColumn(name = "vin_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "car_vin_fk"))
   private Vin vin;
 
-  @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "driver_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "car_driver_fk"))
-  private Driver driver;
+  @ManyToMany(mappedBy = "drivenCarsList", cascade = { CascadeType.PERSIST,
+      CascadeType.REMOVE })
+  private Set<Driver> drivers = new HashSet<>();
 
   public Car() {
 
@@ -92,21 +94,30 @@ public class Car {
     this.brand = model;
   }
 
-  // used from Driver addCar method to set
-  // driver instance and in this way to create bidirectional
-  // relationship between Car and Driver
-  public void setDriver(Driver driver) {
-    this.driver = driver;
-  }
-
   public void setVin(Vin vin) {
     this.vin = vin;
+  }
+
+  public Set<Driver> getDrivers() {
+    return drivers;
+  }
+
+  public void setDrivers(Set<Driver> drivers) {
+    this.drivers = drivers;
+  }
+
+  public void addDriver(Driver driver) {
+    this.drivers.add(driver);
+  }
+
+  public void removeDriver(Driver driver) {
+    this.drivers.remove(driver);
   }
 
   @Override
   public String toString() {
     return "Car [id=" + id + ", model=" + brand + ", color=" + color + ", year=" + year + ", numberOfSeats="
-        + numberOfSeats + ", vin=" + vin + ", driver=" + driver + "]";
+        + numberOfSeats + ", vin=" + vin + "]";
   }
 
 }

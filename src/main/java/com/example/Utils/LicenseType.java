@@ -1,6 +1,6 @@
 package com.example.Utils;
 
-public enum LicenseCategory {
+public enum LicenseType {
   A, // Motorcycle
   B, // Car
   C, // Large goods vehicle

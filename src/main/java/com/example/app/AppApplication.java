@@ -1,20 +1,15 @@
 package com.example.app;
 
-import com.example.Utils.LicenseCategory;
 import com.example.Utils.Utils;
 import com.example.app.Car.CarRepository;
 import com.example.app.Car.Car;
 import com.example.app.Driver.Driver;
 import com.example.app.Driver.DriverRepository;
-import com.example.app.DrivingCategories.DrivingCategories;
-import com.example.app.DrivingCategories.DrivingCategoriesRepository;
+import com.example.app.License.License;
+import com.example.app.Passenger.Passenger;
 import com.example.app.Vin.Vin;
 import com.example.app.Vin.VinRepository;
 import com.github.javafaker.Faker;
-import java.util.Random;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -35,8 +30,7 @@ public class AppApplication {
 	// Hibernate to identify it
 	@Bean
 	CommandLineRunner commandLineRunner(CarRepository carRepository, InputReader inputReader,
-			VinRepository vinRepository, DriverRepository driverRepository,
-			DrivingCategoriesRepository drivingCategoriesRepository) {
+			VinRepository vinRepository, DriverRepository driverRepository) {
 		return args -> {
 			int option = 0;
 			do {
@@ -49,93 +43,57 @@ public class AppApplication {
 					case 0:
 						System.exit(0);
 						break;
-					// Option 1: Create Car
+					// Option 1: Create Entity
 					case 1: {
 						try {
-							Car car = Utils.generateFakeCar();
-							Vin vin = Utils.generateFakeVin();
-							Driver driver = Utils.generateFakeDriver();
+							Car car = Utils.generateCar();
+							Vin vin = Utils.generateVin();
+							Driver driver = Utils.generateDriver();
+							Passenger passenger = Utils.generatePassenger();
+							License license = Utils.generateLicenses();
+
 							car.setVin(vin);
-							car.setDriver(driver);
+							driver.addCarsToDrivenList(car);
+							driver.setLicense(license);
+							driver.addCarsToDrivenList(car);
+							driver.addPassengers(passenger);
+
 							carRepository.save(car);
-							System.out.println("Car: " + car + " Vin: " + vin + " Driver: " + driver);
+
+							System.out.println("Car: " + car + " Vin: " + vin + " Driver: " + driver + " Passenger "
+									+ passenger + " Licenses" + license);
 
 						} catch (DataAccessException ex) {
 							System.out.println(ex.getCause().getMessage());
 						}
 						break;
 					}
-					// Option 2: Create Driver
 					case 2: {
-						Driver driver = Utils.generateFakeDriver();
-						// List<Car> cars = new ArrayList<>();
+						try {
+							System.out.println("Enter amount of entities to generate:");
+							Integer amount = Integer.parseInt(inputReader.readInput());
+							for (int i = 0; i < amount; i++) {
+								Car car = Utils.generateCar();
+								Vin vin = Utils.generateVin();
+								Driver driver = Utils.generateDriver();
+								Passenger passenger = Utils.generatePassenger();
+								License license = Utils.generateLicenses();
 
-						// driverRepository.save(driver);
-						DrivingCategories drivingCategories = Utils.generateFakeLicenseCategory();
-						drivingCategoriesRepository.save(drivingCategories);
-						int iterations = new Random().nextInt(20) + 1;
-						for (int i = 0; i < iterations; i++) {
-							Car car = Utils.generateFakeCar();
-							Vin vin = Utils.generateFakeVin();
+								car.setVin(vin);
+								driver.addCarsToDrivenList(car);
+								driver.setLicense(license);
+								driver.addCarsToDrivenList(car);
+								driver.addPassengers(passenger);
 
-							car.setDriver(driver);
-							car.setVin(vin);
-							driver.addCar(car);
-							System.out.println("Car: " + car + " Vin: " + vin + " Driver: " + driver);
+								carRepository.save(car);
+
+								System.out.println("Car: " + car + " Vin: " + vin + " Driver: " + driver + " Passenger "
+										+ passenger + " Licenses" + license);
+							}
+						} catch (Exception ex) {
+							System.out.println(ex.getCause().getMessage());
 
 						}
-
-						driver.addCategories(drivingCategories);
-						// driver.setCars(cars);
-						driver.setNumberOfDroveCars(driver.getCars().size());
-						driverRepository.save(driver);
-						break;
-					}
-					// Option 3: Create Vin
-					case 3: {
-						Vin vin = Utils.generateFakeVin();
-						System.out.println(vin);
-						vinRepository.save(vin);
-						break;
-					}
-					// Option 4: Create Driver Category
-					case 4: {
-						DrivingCategories drivingCategories = Utils.generateFakeLicenseCategory();
-						System.out.println(drivingCategories);
-						drivingCategoriesRepository.save(drivingCategories);
-						break;
-					}
-					// Option 5: Get Car
-					case 5: {
-						System.out.println("Enter car id");
-						long carId = Long.parseLong(inputReader.readInput());
-						carRepository.findById(carId).ifPresentOrElse(System.out::println,
-								() -> System.out.println("Car not found"));
-						break;
-
-					}
-					// Option 6: Get Driver
-					case 6: {
-						System.out.println("Enter Driver id");
-						long driverId = Long.parseLong(inputReader.readInput());
-						driverRepository.findById(driverId).ifPresentOrElse(System.out::println,
-								() -> System.out.println("Driver not found"));
-						break;
-					}
-					// Option 7: Get Vin
-					case 7: {
-						System.out.println("Enter Vin id");
-						long vinId = Long.parseLong(inputReader.readInput());
-						vinRepository.findById(vinId).ifPresentOrElse(System.out::println,
-								() -> System.out.println("Vin not found"));
-						break;
-					}
-					// Option 8: Get Driver Category
-					case 8: {
-						System.out.println("Enter Driver Category id:");
-						long driverCategoryId = Long.parseLong(inputReader.readInput());
-						drivingCategoriesRepository.findById(driverCategoryId).ifPresentOrElse(System.out::println,
-								() -> System.out.println("Driver Category not found"));
 						break;
 					}
 				}
