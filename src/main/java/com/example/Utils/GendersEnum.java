@@ -1,6 +1,6 @@
 package com.example.Utils;
 
-public enum Genders {
+public enum GendersEnum {
   MAN,
   WOMAN,
   OTHER

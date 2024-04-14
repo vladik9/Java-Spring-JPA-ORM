@@ -40,7 +40,7 @@ public class Car {
   @Column(name = "year", nullable = true, updatable = true, columnDefinition = "INT")
   private Integer year;
 
-  @Column(name = "number_of_seats", nullable = true, updatable = true)
+  @Column(name = "number_of_seats", nullable = true, updatable = true, columnDefinition = "INT")
   private Integer numberOfSeats;
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

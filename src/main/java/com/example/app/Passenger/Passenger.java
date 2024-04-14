@@ -24,13 +24,13 @@ public class Passenger {
   @Column(name = "id", updatable = false, nullable = false)
   private Long id;
 
-  @Column(name = "name", nullable = false, updatable = true)
+  @Column(name = "name", nullable = false, updatable = true, columnDefinition = "TEXT")
   private String name;
 
-  @Column(name = "age", nullable = false, updatable = true)
+  @Column(name = "age", nullable = false, updatable = true, columnDefinition = "INT")
   private Integer age;
 
-  @Column(name = "gender", nullable = false, updatable = true)
+  @Column(name = "gender", nullable = false, updatable = true, columnDefinition = "TEXT")
   private String gender;
 
   @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })

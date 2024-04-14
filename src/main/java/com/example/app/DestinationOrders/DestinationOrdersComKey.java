@@ -6,20 +6,20 @@ import java.io.Serializable;
 
 // Composition Key table
 @Embeddable
-public class DestinationOrdersKey implements Serializable {
+public class DestinationOrdersComKey implements Serializable {
 
   @Column(name = "order_id")
   private Long orderId;
 
-  @Column(name = "distance_id")
-  private Long distanceId;
+  @Column(name = "destination_id")
+  private Long destinationId;
 
-  public DestinationOrdersKey() {
+  public DestinationOrdersComKey() {
   }
 
-  public DestinationOrdersKey(Long orderId, Long distanceId) {
+  public DestinationOrdersComKey(Long orderId, Long distanceId) {
     this.orderId = orderId;
-    this.distanceId = distanceId;
+    this.destinationId = distanceId;
   }
 
   public Long getOrderId() {
@@ -30,12 +30,12 @@ public class DestinationOrdersKey implements Serializable {
     this.orderId = orderId;
   }
 
-  public Long getDistanceId() {
-    return distanceId;
+  public Long getDestinationId() {
+    return destinationId;
   }
 
-  public void setDistanceId(Long distanceId) {
-    this.distanceId = distanceId;
+  public void setDestinationId(Long distanceId) {
+    this.destinationId = distanceId;
   }
 
   @Override
@@ -43,7 +43,7 @@ public class DestinationOrdersKey implements Serializable {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((orderId == null) ? 0 : orderId.hashCode());
-    result = prime * result + ((distanceId == null) ? 0 : distanceId.hashCode());
+    result = prime * result + ((destinationId == null) ? 0 : destinationId.hashCode());
     return result;
   }
 
@@ -55,16 +55,16 @@ public class DestinationOrdersKey implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    DestinationOrdersKey other = (DestinationOrdersKey) obj;
+    DestinationOrdersComKey other = (DestinationOrdersComKey) obj;
     if (orderId == null) {
       if (other.orderId != null)
         return false;
     } else if (!orderId.equals(other.orderId))
       return false;
-    if (distanceId == null) {
-      if (other.distanceId != null)
+    if (destinationId == null) {
+      if (other.destinationId != null)
         return false;
-    } else if (!distanceId.equals(other.distanceId))
+    } else if (!destinationId.equals(other.destinationId))
       return false;
     return true;
   }

@@ -17,28 +17,31 @@ import jakarta.persistence.UniqueConstraint;
 import java.util.ArrayList;
 
 @Entity(name = "Orders")
-@Table(name = "Orders", uniqueConstraints = {
-    @UniqueConstraint(name = "car_unique_constraint", columnNames = "id")
+@Table(name = "orders", uniqueConstraints = {
+    @UniqueConstraint(name = "orders_unique_constraint", columnNames = "id")
 })
 public class Order {
 
   @Id
-  @SequenceGenerator(name = "driver_sequence", sequenceName = "driver_sequence", allocationSize = 1)
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "driver_sequence")
+  @SequenceGenerator(name = "orders_sequence", sequenceName = "orders_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orders_sequence")
   @Column(name = "id", updatable = false, nullable = false)
   private Long id;
 
-  @Column(name = "price", nullable = false, updatable = true)
+  @Column(name = "price", nullable = false, updatable = true, columnDefinition = "DECIMAL")
   private Double price;
 
-  @Column(name = "distance", nullable = false, updatable = true)
+  @Column(name = "distance", nullable = false, updatable = true, columnDefinition = "DECIMAL")
   private Double distance;
+
+  @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = "order")
+  private List<DestinationOrders> destinationOrders = new ArrayList<>();
 
   public Order() {
   }
 
-  public Order(Long id, Double price, Double distance) {
-    this.id = id;
+  public Order(Double price, Double distance) {
+
     this.price = price;
     this.distance = distance;
   }
@@ -58,9 +61,6 @@ public class Order {
   public void setDistance(Double distance) {
     this.distance = distance;
   }
-
-  @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = "order")
-  private List<DestinationOrders> destinationOrders = new ArrayList<>();
 
   public List<DestinationOrders> getDestinationOrders() {
     return destinationOrders;
@@ -82,7 +82,7 @@ public class Order {
 
   @Override
   public String toString() {
-    return "Order [id=" + id + ", price=" + price + ", distance=" + distance + "]";
+    return "Order [id=" + id + ", price=" + price + ", distance=" + distance + " km ]";
   }
 
 }

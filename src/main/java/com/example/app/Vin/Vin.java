@@ -24,7 +24,7 @@ public class Vin {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "vin", nullable = false, updatable = true)
+    @Column(name = "vin", nullable = false, updatable = true, columnDefinition = "TEXT")
     private String vin;
 
     @OneToOne(mappedBy = "vin")

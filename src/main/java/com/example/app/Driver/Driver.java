@@ -36,16 +36,16 @@ public class Driver {
   @Column(name = "id", updatable = false, nullable = false)
   private Long id;
 
-  @Column(name = "name", nullable = false, updatable = true)
+  @Column(name = "name", nullable = false, updatable = true, columnDefinition = "TEXT")
   private String name;
 
-  @Column(name = "age", updatable = true, nullable = false)
+  @Column(name = "age", updatable = true, nullable = false, columnDefinition = "INT")
   private Integer age;
 
-  @Column(name = "experience", updatable = true, nullable = false)
+  @Column(name = "experience", updatable = true, nullable = false, columnDefinition = "INT")
   private Integer experience;
 
-  @Column(name = "driven_cars_number", updatable = true, nullable = false)
+  @Column(name = "driven_cars_number", updatable = true, nullable = false, columnDefinition = "INT")
   private Integer drivenCarsNumber;
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

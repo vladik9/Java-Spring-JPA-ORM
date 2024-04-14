@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity(name = "DestinationOrders")
@@ -16,16 +15,16 @@ import jakarta.persistence.Table;
 public class DestinationOrders {
 
   @EmbeddedId
-  private DestinationOrdersKey id;
+  private DestinationOrdersComKey id;
 
   @ManyToOne
   @MapsId("orderId")
   @JoinColumn(name = "order_id")
   private Order order;
 
-  @OneToMany
-  @MapsId("distanceId")
-  @JoinColumn(name = "distance_id")
+  @ManyToOne
+  @MapsId("destinationId")
+  @JoinColumn(name = "destination_id")
   private Destination destination;
 
   public DestinationOrders() {
@@ -36,11 +35,17 @@ public class DestinationOrders {
     this.destination = destination;
   }
 
-  public DestinationOrdersKey getDestinationOrderId() {
+  public DestinationOrders(DestinationOrdersComKey id, Order order, Destination destination) {
+    this.id = id;
+    this.order = order;
+    this.destination = destination;
+  }
+
+  public DestinationOrdersComKey getDestinationOrderId() {
     return id;
   }
 
-  public void setDestinationOrderId(DestinationOrdersKey id) {
+  public void setDestinationOrderId(DestinationOrdersComKey id) {
     this.id = id;
   }
 
@@ -58,6 +63,11 @@ public class DestinationOrders {
 
   public void setDestination(Destination destination) {
     this.destination = destination;
+  }
+
+  @Override
+  public String toString() {
+    return "DestinationOrders [id=" + id + ", order=" + order + ", destination=" + destination + "]";
   }
 
 }

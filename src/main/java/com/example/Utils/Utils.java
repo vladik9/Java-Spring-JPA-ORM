@@ -2,8 +2,10 @@ package com.example.Utils;
 
 import com.example.app.InputReader;
 import com.example.app.Car.Car;
+import com.example.app.Destination.Destination;
 import com.example.app.Driver.Driver;
 import com.example.app.License.License;
+import com.example.app.Order.Order;
 import com.example.app.Passenger.Passenger;
 import com.example.app.Vin.Vin;
 import com.github.javafaker.Faker;
@@ -20,9 +22,9 @@ public class Utils {
   // The `values()` method in Java enums returns an array containing all the enum
   // constants in the order they are declared. So, in this case, `CAR_BRANDS` will
   // contain all the car brands defined in the `CarBrand` enum.
-  private static final CarBrand[] CAR_BRANDS = CarBrand.values();
-  private static final LicenseType[] licenseTypes = LicenseType.values();
-  private static final Genders[] genders = Genders.values();
+  private static final CarBrandEnum[] CAR_BRANDS = CarBrandEnum.values();
+  private static final LicenseEnum[] licenseTypes = LicenseEnum.values();
+  private static final GendersEnum[] genders = GendersEnum.values();
   private static final Faker faker = new Faker();
   private static final InputReader inputReader = new InputReader();
   private static Random random = new Random();
@@ -64,8 +66,8 @@ public class Utils {
     return Utils.CAR_BRANDS[index].toString();
   }
 
-  public static List<LicenseType> generateLicenseCategory() {
-    List<LicenseType> drivingCategories = new ArrayList<LicenseType>();
+  public static List<LicenseEnum> generateLicenseCategory() {
+    List<LicenseEnum> drivingCategories = new ArrayList<LicenseEnum>();
     for (int i = 0; i < 4; i++) {
       int index = random.nextInt(licenseTypes.length);
       drivingCategories.add(licenseTypes[index]);
@@ -99,6 +101,17 @@ public class Utils {
         faker.name().fullName(),
         faker.number().numberBetween(18, 60),
         genders[faker.random().nextInt(genders.length)].toString());
+  }
+
+  public static Order generateOrder() {
+    double distance = faker.number().randomDouble(2, 0, 100);
+    double price = distance * 1.5;
+    return new Order(price, distance);
+  }
+
+  public static Destination generateDestination() {
+    return new Destination(faker.address().longitude(), faker.address().latitude());
+
   }
   // ##################################
   // ##################################

@@ -20,6 +20,7 @@ import jakarta.persistence.UniqueConstraint;
 @Table(name = "destination", uniqueConstraints = {
     @UniqueConstraint(name = "destination_unique_constraint", columnNames = "id") })
 public class Destination {
+
   @Id
   @SequenceGenerator(name = "destination_sequence", sequenceName = "destination_sequence", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "destination_sequence")
@@ -27,10 +28,10 @@ public class Destination {
   private Long id;
 
   @Column(name = "longitude", nullable = true, updatable = true, columnDefinition = "TEXT")
-  private Double longitude;
+  private String longitude;
 
   @Column(name = "latitude", nullable = true, updatable = true, columnDefinition = "TEXT")
-  private Double latitude;
+  private String latitude;
 
   @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = "destination")
   private List<DestinationOrders> destinationOrders = new ArrayList<>();
@@ -38,7 +39,7 @@ public class Destination {
   public Destination() {
   }
 
-  public Destination(Double longitude, Double latitude) {
+  public Destination(String longitude, String latitude) {
     this.longitude = longitude;
     this.latitude = latitude;
   }
@@ -51,19 +52,19 @@ public class Destination {
     this.id = id;
   }
 
-  public Double getLongitude() {
+  public String getLongitude() {
     return longitude;
   }
 
-  public void setLongitude(Double longitude) {
+  public void setLongitude(String longitude) {
     this.longitude = longitude;
   }
 
-  public Double getLatitude() {
+  public String getLatitude() {
     return latitude;
   }
 
-  public void setLatitude(Double latitude) {
+  public void setLatitude(String latitude) {
     this.latitude = latitude;
   }
 

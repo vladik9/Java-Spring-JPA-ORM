@@ -1,6 +1,6 @@
 package com.example.Utils;
 
-public enum CarBrand {
+public enum CarBrandEnum {
     TOYOTA,
     HONDA,
     FORD,
