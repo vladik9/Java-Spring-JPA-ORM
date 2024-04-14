@@ -5,8 +5,8 @@ import com.example.app.Car.Car;
 import com.example.app.Destination.Destination;
 import com.example.app.Driver.Driver;
 import com.example.app.License.License;
-import com.example.app.Order.Order;
 import com.example.app.Passenger.Passenger;
+import com.example.app.Ride.Ride;
 import com.example.app.Vin.Vin;
 import com.github.javafaker.Faker;
 
@@ -40,6 +40,7 @@ public class Utils {
     System.out.println("####Create#####");
     System.out.println("Option 1: Create one Entity");
     System.out.println("Option 2: Create X Entities");
+    System.out.println("Option 3: Create Order and Driver");
     // System.out.println("Option 2: Create Driver");
     // System.out.println("Option 3: Create Vin");
     // System.out.println("Option 4: Create Driver Category");
@@ -103,10 +104,10 @@ public class Utils {
         genders[faker.random().nextInt(genders.length)].toString());
   }
 
-  public static Order generateOrder() {
+  public static Ride generateOrder() {
     double distance = faker.number().randomDouble(2, 0, 100);
     double price = distance * 1.5;
-    return new Order(price, distance);
+    return new Ride(price, distance, generateDestination());
   }
 
   public static Destination generateDestination() {

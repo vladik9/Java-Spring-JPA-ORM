@@ -1,9 +1,6 @@
 package com.example.app.Destination;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.example.app.DestinationOrders.DestinationOrders;
+import com.example.app.Ride.Ride;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,7 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -33,8 +30,8 @@ public class Destination {
   @Column(name = "latitude", nullable = true, updatable = true, columnDefinition = "TEXT")
   private String latitude;
 
-  @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = "destination")
-  private List<DestinationOrders> destinationOrders = new ArrayList<>();
+  @OneToOne(mappedBy = "destination", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Ride ride;
 
   public Destination() {
   }
@@ -68,28 +65,17 @@ public class Destination {
     this.latitude = latitude;
   }
 
-  public List<DestinationOrders> getDestinationOrders() {
-    return destinationOrders;
+  public Ride getRide() {
+    return ride;
   }
 
-  public void setDestinationOrders(List<DestinationOrders> destinationOrders) {
-    this.destinationOrders = destinationOrders;
-  }
-
-  public void addDestinationOrders(DestinationOrders destinationOrders) {
-    if (!this.destinationOrders.contains(destinationOrders))
-      return;
-    this.destinationOrders.add(destinationOrders);
-  }
-
-  public void removeDestinationOrders(DestinationOrders destinationOrders) {
-    if (this.destinationOrders.contains(destinationOrders))
-      this.destinationOrders.remove(destinationOrders);
+  public void setOrder(Ride ride) {
+    this.ride = ride;
   }
 
   @Override
   public String toString() {
-    return "Destination [id=" + id + ", longitude=" + longitude + ", latitude=" + latitude + "]";
+    return "Destination [id=" + id + ", longitude=" + longitude + ", latitude=" + latitude + ", ride=" + ride + "]";
   }
 
 }

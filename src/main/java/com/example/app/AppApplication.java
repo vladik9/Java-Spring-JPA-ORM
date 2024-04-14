@@ -2,15 +2,14 @@ package com.example.app;
 
 import com.example.Utils.Utils;
 import com.example.app.Car.CarRepository;
-import com.example.app.Destination.Destination;
-import com.example.app.DestinationOrders.DestinationOrders;
-import com.example.app.DestinationOrders.DestinationOrdersComKey;
 import com.example.app.Car.Car;
 import com.example.app.Driver.Driver;
 import com.example.app.Driver.DriverRepository;
 import com.example.app.License.License;
-import com.example.app.Order.Order;
+import com.example.app.Orders.Orders;
+import com.example.app.Orders.OrderId;
 import com.example.app.Passenger.Passenger;
+import com.example.app.Ride.Ride;
 import com.example.app.Vin.Vin;
 import com.example.app.Vin.VinRepository;
 import com.github.javafaker.Faker;
@@ -101,12 +100,13 @@ public class AppApplication {
 						break;
 					}
 					case 3: {
-						Order order = Utils.generateOrder();
-						Destination destination = Utils.generateDestination();
-						DestinationOrders destinationOrders = new DestinationOrders(new DestinationOrdersComKey(1L, 1L), order,
-								destination);
-
-						System.out.println(destinationOrders);
+						Ride order = Utils.generateOrder();
+						Driver driver = Utils.generateDriver();
+						License license = Utils.generateLicenses();
+						driver.setLicense(license);
+						System.out.println(order + " " + driver);
+						driver.addOrder(new Orders(new OrderId(1L, 1L), order, driver));
+						driverRepository.save(driver);
 						try {
 						} catch (DataAccessException ex) {
 							System.out.println(ex.getCause().getMessage());

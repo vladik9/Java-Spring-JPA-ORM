@@ -7,7 +7,9 @@ import java.util.List;
 
 import com.example.app.Car.Car;
 import com.example.app.License.License;
+import com.example.app.Orders.Orders;
 import com.example.app.Passenger.Passenger;
+import com.example.app.Ride.Ride;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -58,6 +60,9 @@ public class Driver {
   @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
   @JoinTable(name = "drivenCarList", joinColumns = @JoinColumn(name = "driver_id"), foreignKey = @ForeignKey(name = "driver_list_id_fk"), inverseJoinColumns = @JoinColumn(name = "car_id"))
   private Set<Car> drivenCarsList = new HashSet<>();
+
+  @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = "driver")
+  private List<Orders> ordersList = new ArrayList<>();
 
   public Driver() {
   }
@@ -165,6 +170,24 @@ public class Driver {
       car.getDrivers().remove(this);
       this.drivenCarsNumber--;
     }
+  }
+
+  public List<Orders> getOrdersList() {
+    return ordersList;
+  }
+
+  public void setOrdersList(List<Orders> orders) {
+    this.ordersList = orders;
+  }
+
+  public void addOrder(Orders order) {
+    if (!this.ordersList.contains(order))
+      this.ordersList.add(order);
+  }
+
+  public void removeOrder(Orders order) {
+    if (this.ordersList.contains(order))
+      this.ordersList.remove(order);
   }
 
   @Override
