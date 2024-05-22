@@ -5,14 +5,17 @@ import com.example.app.Car.CarRepository;
 import com.example.app.Car.Car;
 import com.example.app.Driver.Driver;
 import com.example.app.Driver.DriverRepository;
+import com.example.app.DrivingOrders.DrivingOrders;
+import com.example.app.DrivingOrders.DrivingOrdersId;
 import com.example.app.License.License;
-import com.example.app.Order.Order;
-import com.example.app.Order.OrderId;
 import com.example.app.Passenger.Passenger;
 import com.example.app.Ride.Ride;
 import com.example.app.Vin.Vin;
 import com.example.app.Vin.VinRepository;
 import com.github.javafaker.Faker;
+import com.mysql.cj.exceptions.WrongArgumentException;
+
+import java.io.IOError;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -38,8 +41,13 @@ public class AppApplication {
 			int option = 0;
 			do {
 				Utils.printMenuOptions();
-				option = Integer.parseInt(inputReader.readInput());
-				System.out.println("You choose: " + option);
+				try {
+					option = Integer.parseInt(inputReader.readInput());
+					System.out.println("You choose: " + option);
+				} catch (NumberFormatException e) {
+					System.out.println("You choose: " + option + " which is invalid");
+					e.printStackTrace();
+				}
 
 				switch (option) {
 					// System exit
@@ -105,7 +113,7 @@ public class AppApplication {
 						License license = Utils.generateLicenses();
 						driver.setLicense(license);
 						System.out.println(ride + " " + driver);
-						driver.addOrder(new Order(new OrderId(1L, 1L), ride, driver));
+						driver.addOrder(new DrivingOrders(new DrivingOrdersId(1L, 1L), ride, driver));
 						driverRepository.save(driver);
 						try {
 						} catch (DataAccessException ex) {
@@ -114,6 +122,9 @@ public class AppApplication {
 						}
 						break;
 					}
+					default:
+						System.out.println("Invalid option");
+						break;
 				}
 			} while (option != 0);
 		};

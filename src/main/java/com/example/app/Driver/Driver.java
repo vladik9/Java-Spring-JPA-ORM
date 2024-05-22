@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import com.example.app.Car.Car;
+import com.example.app.DrivingOrders.DrivingOrders;
 import com.example.app.License.License;
-import com.example.app.Order.Order;
 import com.example.app.Passenger.Passenger;
 import com.example.app.Ride.Ride;
 
@@ -62,7 +62,7 @@ public class Driver {
   private Set<Car> drivenCarsList = new HashSet<>();
 
   @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = "driver")
-  private List<Order> ordersList = new ArrayList<>();
+  private List<DrivingOrders> ordersList = new ArrayList<>();
 
   public Driver() {
   }
@@ -172,20 +172,20 @@ public class Driver {
     }
   }
 
-  public List<Order> getOrdersList() {
+  public List<DrivingOrders> getOrdersList() {
     return ordersList;
   }
 
-  public void setOrdersList(List<Order> ordersList) {
+  public void setOrdersList(List<DrivingOrders> ordersList) {
     this.ordersList = ordersList;
   }
 
-  public void addOrder(Order order) {
+  public void addOrder(DrivingOrders order) {
     if (!this.ordersList.contains(order))
       this.ordersList.add(order);
   }
 
-  public void removeOrder(Order order) {
+  public void removeOrder(DrivingOrders order) {
     if (this.ordersList.contains(order))
       this.ordersList.remove(order);
   }

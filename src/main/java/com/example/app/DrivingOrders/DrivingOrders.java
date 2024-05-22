@@ -1,4 +1,4 @@
-package com.example.app.Order;
+package com.example.app.DrivingOrders;
 
 import java.time.LocalDateTime;
 
@@ -14,12 +14,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 
-@Entity(name = "Order")
-@Table(name = "order")
-public class Order {
+@Entity(name = "DrivingOrders")
+@Table(name = "drivingOrders")
+public class DrivingOrders {
 
   @EmbeddedId
-  private OrderId id;
+  private DrivingOrdersId id;
 
   @ManyToOne
   @MapsId("rideId")
@@ -34,16 +34,16 @@ public class Order {
   @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP")
   private LocalDateTime createdAt;
 
-  public Order() {
+  public DrivingOrders() {
   }
 
-  public Order(Ride rideId, Driver driver) {
+  public DrivingOrders(Ride rideId, Driver driver) {
     this.ride = rideId;
     this.driver = driver;
     this.createdAt = LocalDateTime.now();
   }
 
-  public Order(OrderId id, Ride rideId, Driver driver) {
+  public DrivingOrders(DrivingOrdersId id, Ride rideId, Driver driver) {
     this.id = id;
     this.ride = rideId;
     this.driver = driver;
@@ -51,11 +51,11 @@ public class Order {
 
   }
 
-  public OrderId getDestinationOrderId() {
+  public DrivingOrdersId getDestinationOrderId() {
     return id;
   }
 
-  public void setDestinationOrderId(OrderId id) {
+  public void setDestinationOrderId(DrivingOrdersId id) {
     this.id = id;
   }
 

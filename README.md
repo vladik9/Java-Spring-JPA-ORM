@@ -51,3 +51,12 @@ Extensions:
 open schema.drawio
 
 ![schema](./images/schema.png "Project Schema")
+
+## Valid options:
+
+Option 0: Exit
+####Create#####
+Option 1: Create one Entity
+Option 2: Create X Entities
+Option 3: Create Order and Driver
+####################

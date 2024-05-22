@@ -1,4 +1,4 @@
-package com.example.app.Order;
+package com.example.app.DrivingOrders;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 // Composition Key table
 @Embeddable
-public class OrderId implements Serializable {
+public class DrivingOrdersId implements Serializable {
 
   @Column(name = "ride_id")
   private Long rideId;
@@ -14,10 +14,10 @@ public class OrderId implements Serializable {
   @Column(name = "driver_id")
   private Long driverId;
 
-  public OrderId() {
+  public DrivingOrdersId() {
   }
 
-  public OrderId(Long rideId, Long driverId) {
+  public DrivingOrdersId(Long rideId, Long driverId) {
     this.rideId = rideId;
     this.driverId = driverId;
   }
@@ -55,7 +55,7 @@ public class OrderId implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    OrderId other = (OrderId) obj;
+    DrivingOrdersId other = (DrivingOrdersId) obj;
     if (rideId == null) {
       if (other.rideId != null)
         return false;
