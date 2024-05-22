@@ -69,7 +69,7 @@ public class Destination {
     return ride;
   }
 
-  public void setOrder(Ride ride) {
+  public void setRide(Ride ride) {
     this.ride = ride;
   }
 

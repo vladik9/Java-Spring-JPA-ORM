@@ -1,4 +1,4 @@
-package com.example.app.Orders;
+package com.example.app.Order;
 
 import java.time.LocalDateTime;
 
@@ -14,36 +14,36 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 
-@Entity(name = "Orders")
-@Table(name = "orders")
-public class Orders {
+@Entity(name = "Order")
+@Table(name = "order")
+public class Order {
 
   @EmbeddedId
   private OrderId id;
 
   @ManyToOne
   @MapsId("rideId")
-  @JoinColumn(name = "ride_id", foreignKey = @ForeignKey(name = "ride_id_fk"))
+  @JoinColumn(name = "ride_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "ride_id_fk"))
   private Ride ride;
 
   @ManyToOne
   @MapsId("driverId")
-  @JoinColumn(name = "driver_id", foreignKey = @ForeignKey(name = "driver_id_fk"))
+  @JoinColumn(name = "driver_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "driver_id_fk"))
   private Driver driver;
 
-  @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+  @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP")
   private LocalDateTime createdAt;
 
-  public Orders() {
+  public Order() {
   }
 
-  public Orders(Ride rideId, Driver driver) {
+  public Order(Ride rideId, Driver driver) {
     this.ride = rideId;
     this.driver = driver;
     this.createdAt = LocalDateTime.now();
   }
 
-  public Orders(OrderId id, Ride rideId, Driver driver) {
+  public Order(OrderId id, Ride rideId, Driver driver) {
     this.id = id;
     this.ride = rideId;
     this.driver = driver;
@@ -85,7 +85,7 @@ public class Orders {
 
   @Override
   public String toString() {
-    return "Orders [id=" + id + ", rideId=" + ride + ", driver=" + driver + "]";
+    return "Order [id=" + id + ", rideId=" + ride + ", driver=" + driver + "]";
   }
 
 }

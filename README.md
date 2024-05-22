@@ -49,3 +49,5 @@ Extensions:
 ## Diagram:
 
 open schema.drawio
+
+![schema](./images/schema.png "Project Schema")

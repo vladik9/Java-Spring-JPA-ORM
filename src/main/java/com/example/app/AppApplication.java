@@ -6,8 +6,8 @@ import com.example.app.Car.Car;
 import com.example.app.Driver.Driver;
 import com.example.app.Driver.DriverRepository;
 import com.example.app.License.License;
-import com.example.app.Orders.Orders;
-import com.example.app.Orders.OrderId;
+import com.example.app.Order.Order;
+import com.example.app.Order.OrderId;
 import com.example.app.Passenger.Passenger;
 import com.example.app.Ride.Ride;
 import com.example.app.Vin.Vin;
@@ -100,12 +100,12 @@ public class AppApplication {
 						break;
 					}
 					case 3: {
-						Ride order = Utils.generateOrder();
+						Ride ride = Utils.generateRide();
 						Driver driver = Utils.generateDriver();
 						License license = Utils.generateLicenses();
 						driver.setLicense(license);
-						System.out.println(order + " " + driver);
-						driver.addOrder(new Orders(new OrderId(1L, 1L), order, driver));
+						System.out.println(ride + " " + driver);
+						driver.addOrder(new Order(new OrderId(1L, 1L), ride, driver));
 						driverRepository.save(driver);
 						try {
 						} catch (DataAccessException ex) {

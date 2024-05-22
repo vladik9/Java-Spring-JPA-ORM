@@ -104,7 +104,7 @@ public class Utils {
         genders[faker.random().nextInt(genders.length)].toString());
   }
 
-  public static Ride generateOrder() {
+  public static Ride generateRide() {
     double distance = faker.number().randomDouble(2, 0, 100);
     double price = distance * 1.5;
     return new Ride(price, distance, generateDestination());

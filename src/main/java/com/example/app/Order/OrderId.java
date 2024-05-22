@@ -1,4 +1,4 @@
-package com.example.app.Orders;
+package com.example.app.Order;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

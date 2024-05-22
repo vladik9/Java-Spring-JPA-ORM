@@ -4,7 +4,7 @@ import jakarta.persistence.ForeignKey;
 import java.util.List;
 
 import com.example.app.Destination.Destination;
-import com.example.app.Orders.Orders;
+import com.example.app.Order.Order;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -43,7 +43,7 @@ public class Ride {
   private Destination destination;
 
   @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = "ride")
-  private List<Orders> ordersList = new ArrayList<>();
+  private List<Order> ordersList = new ArrayList<>();
 
   public Ride() {
   }
@@ -71,20 +71,20 @@ public class Ride {
     this.distance = distance;
   }
 
-  public List<Orders> getOrdersList() {
+  public List<Order> getOrdersList() {
     return ordersList;
   }
 
-  public void setOrdersList(List<Orders> orders) {
+  public void setOrdersList(List<Order> orders) {
     this.ordersList = orders;
   }
 
-  public void addOrder(Orders order) {
+  public void addOrder(Order order) {
     if (!this.ordersList.contains(order))
       this.ordersList.add(order);
   }
 
-  public void removeOrder(Orders order) {
+  public void removeOrder(Order order) {
     if (this.ordersList.contains(order))
       this.ordersList.remove(order);
   }
