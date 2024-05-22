@@ -54,9 +54,7 @@ open schema.drawio
 
 ## Valid options:
 
-Option 0: Exit
-####Create#####
-Option 1: Create one Entity
-Option 2: Create X Entities
-Option 3: Create Order and Driver
-####################
+1. Option 0: Exit
+2. Option : Create one Entity
+3. Option 2: Create X Entities
+4. Option 3: Create Order and Driver
