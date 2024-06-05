@@ -9,7 +9,6 @@ import com.example.app.Car.Car;
 import com.example.app.DrivingOrders.DrivingOrders;
 import com.example.app.License.License;
 import com.example.app.Passenger.Passenger;
-import com.example.app.Ride.Ride;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

@@ -13,9 +13,6 @@ import com.example.app.Ride.Ride;
 import com.example.app.Vin.Vin;
 import com.example.app.Vin.VinRepository;
 import com.github.javafaker.Faker;
-import com.mysql.cj.exceptions.WrongArgumentException;
-
-import java.io.IOError;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
