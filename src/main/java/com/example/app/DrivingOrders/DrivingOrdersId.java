@@ -1,8 +1,9 @@
 package com.example.app.DrivingOrders;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import java.io.Serializable;
 
 // Composition Key table
 @Embeddable
@@ -22,22 +23,47 @@ public class DrivingOrdersId implements Serializable {
     this.driverId = driverId;
   }
 
+  /**
+   * Retrieves the ride ID associated with this DrivingOrdersId object.
+   *
+   * @return the ride ID as a Long
+   */
   public Long getRideId() {
     return rideId;
   }
 
+  /**
+   * Sets the ride ID for this DrivingOrdersId object.
+   *
+   * @param orderId the new ride ID to set
+   */
   public void setRideId(Long orderId) {
     this.rideId = orderId;
   }
 
+  /**
+   * Retrieves the driver ID associated with this DrivingOrdersId object.
+   *
+   * @return the driver ID as a Long
+   */
   public Long getDriverId() {
     return driverId;
   }
 
+  /**
+   * Sets the driver ID for this DrivingOrdersId object.
+   *
+   * @param driverId the new driver ID to set
+   */
   public void setDriverId(Long driverId) {
     this.driverId = driverId;
   }
 
+  /**
+   * Calculates the hash code for this DrivingOrdersId object.
+   *
+   * @return the hash code value for this DrivingOrdersId object
+   */
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -47,6 +73,12 @@ public class DrivingOrdersId implements Serializable {
     return result;
   }
 
+  /**
+   * Determines whether this DrivingOrdersId object is equal to another object.
+   *
+   * @param obj the object to compare to this object
+   * @return true if the objects are equal, false otherwise
+   */
   @Override
   public boolean equals(Object obj) {
     if (this == obj)

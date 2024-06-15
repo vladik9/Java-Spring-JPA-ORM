@@ -41,38 +41,83 @@ public class Destination {
     this.latitude = latitude;
   }
 
+  /**
+   * Retrieves the ID of the Destination object.
+   *
+   * @return the ID of the Destination object as a Long
+   */
   public Long getId() {
     return id;
   }
 
+  /**
+   * Sets the ID of the Destination object.
+   *
+   * @param id the new ID to set for the Destination object
+   */
   public void setId(Long id) {
     this.id = id;
   }
 
+  /**
+   * Retrieves the longitude of the Destination object.
+   *
+   * @return the longitude of the Destination object as a String
+   */
   public String getLongitude() {
     return longitude;
   }
 
+  /**
+   * Sets the longitude of the Destination object.
+   *
+   * @param longitude the new longitude to set for the Destination object
+   */
   public void setLongitude(String longitude) {
     this.longitude = longitude;
   }
 
+  /**
+   * Retrieves the latitude of the Destination object.
+   *
+   * @return the latitude of the Destination object as a String
+   */
   public String getLatitude() {
     return latitude;
   }
 
+  /**
+   * Sets the latitude of the Destination object.
+   *
+   * @param latitude the new latitude to set for the Destination object
+   */
   public void setLatitude(String latitude) {
     this.latitude = latitude;
   }
 
+  /**
+   * Retrieves the ride associated with this Destination object.
+   *
+   * @return the ride associated with this Destination object
+   */
   public Ride getRide() {
     return ride;
   }
 
+  /**
+   * Sets the ride for this Destination object.
+   *
+   * @param ride the new ride to set for this Destination object
+   */
   public void setRide(Ride ride) {
     this.ride = ride;
   }
 
+  /**
+   * Returns a string representation of the Destination object.
+   *
+   * @return a string representation of the Destination object
+   */
   @Override
   public String toString() {
     return "Destination [id=" + id + ", longitude=" + longitude + ", latitude=" + latitude + ", ride=" + ride + "]";

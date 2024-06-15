@@ -1,5 +1,8 @@
 package com.example.app.Car;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.example.app.Driver.Driver;
 import com.example.app.Vin.Vin;
 
@@ -16,8 +19,6 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity(name = "Car")
 @Table(name = "car", uniqueConstraints = {
@@ -62,58 +63,131 @@ public class Car {
     this.numberOfSeats = numberOfSeats;
   }
 
+  /**
+   * Retrieves the color of the car.
+   *
+   * @return the color of the car as a string
+   */
   public String getColor() {
     return color;
   }
 
+  /**
+   * Sets the color of the object.
+   *
+   * @param color the new color to set
+   */
   public void setColor(String color) {
     this.color = color;
   }
 
+  /**
+   * Returns the year of the object.
+   *
+   * @return the year as an Integer
+   */
   public Integer getYear() {
     return year;
   }
 
+  /**
+   * Sets the year of the object.
+   *
+   * @param year the new year to set
+   */
   public void setYear(Integer year) {
     this.year = year;
   }
 
+  /**
+   * Retrieves the number of seats in the car.
+   *
+   * @return the number of seats as an Integer
+   */
   public Integer getNumberOfSeats() {
     return numberOfSeats;
   }
 
+  /**
+   * Sets the number of seats for the car.
+   *
+   * @param numberOfSeats the new number of seats for the car
+   */
   public void setNumberOfSeats(Integer numberOfSeats) {
     this.numberOfSeats = numberOfSeats;
   }
 
+  /**
+   * Returns the brand of the object.
+   *
+   * @return the brand as a string
+   */
   public String getBrand() {
     return brand;
   }
 
+  /**
+   * Sets the brand of the object.
+   *
+   * @param model the new brand for the object
+   */
   public void setBrand(String model) {
     this.brand = model;
   }
 
+  /**
+   * Sets the Vin (Vehicle Identification Number) for this car.
+   *
+   * @param vin the new Vin for this car
+   */
   public void setVin(Vin vin) {
     this.vin = vin;
   }
 
+  /**
+   * Returns the set of drivers associated with this car.
+   *
+   * @return a set of Driver objects representing the drivers associated with this
+   *         car
+   */
   public Set<Driver> getDrivers() {
     return drivers;
   }
 
+  /**
+   * Sets the set of drivers associated with this car.
+   *
+   * @param drivers a set of Driver objects representing the drivers associated
+   *                with this car
+   */
   public void setDrivers(Set<Driver> drivers) {
     this.drivers = drivers;
   }
 
+  /**
+   * Adds a driver to the set of drivers associated with this car.
+   *
+   * @param driver the driver to be added
+   */
   public void addDriver(Driver driver) {
     this.drivers.add(driver);
   }
 
+  /**
+   * Removes a driver from the set of drivers associated with this car.
+   *
+   * @param driver the driver to be removed
+   */
   public void removeDriver(Driver driver) {
     this.drivers.remove(driver);
   }
 
+  /**
+   * Returns a string representation of the Car object.
+   *
+   * @return a string in the format "Car [id=<id>, model=<brand>, color=<color>,
+   *         year=<year>, numberOfSeats=<numberOfSeats>, vin=<vin>]"
+   */
   @Override
   public String toString() {
     return "Car [id=" + id + ", model=" + brand + ", color=" + color + ", year=" + year + ", numberOfSeats="

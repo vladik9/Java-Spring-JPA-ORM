@@ -1,5 +1,11 @@
 package com.example.app.License;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import com.example.Utils.LicenseEnum;
+import com.example.app.Driver.Driver;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,11 +16,6 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import java.time.LocalDate;
-import java.util.List;
-
-import com.example.Utils.LicenseEnum;
-import com.example.app.Driver.Driver;
 
 @Entity(name = "License")
 @Table(name = "license", uniqueConstraints = { @UniqueConstraint(name = "car_unique_constraint", columnNames = "id")
@@ -52,54 +53,119 @@ public class License {
     this.licenses_list = licenses_list;
   }
 
+  /**
+   * Retrieves the ID of the License object.
+   *
+   * @return the ID of the License object as a Long
+   */
   public Long getId() {
     return id;
   }
 
+  /**
+   * Sets the ID of the object.
+   *
+   * @param id the new ID to set
+   */
   public void setId(Long id) {
     this.id = id;
   }
 
+  /**
+   * Returns the license number of this object.
+   *
+   * @return the license number as a String
+   */
   public String getLicenseNumber() {
     return licenseNumber;
   }
 
+  /**
+   * Sets the license number of this object.
+   *
+   * @param licenseNumber the new license number to set
+   */
   public void setLicenseNumber(String licenseNumber) {
     this.licenseNumber = licenseNumber;
   }
 
+  /**
+   * Returns the issue date of this object.
+   *
+   * @return the issue date as a LocalDate
+   */
   public LocalDate getIssueDate() {
     return issueDate;
   }
 
+  /**
+   * Sets the issue date of this object.
+   *
+   * @param issueDate the new issue date to set
+   */
   public void setIssueDate(LocalDate issueDate) {
     this.issueDate = issueDate;
   }
 
+  /**
+   * Retrieves the expiration date of this object.
+   *
+   * @return the expiration date as a LocalDate
+   */
   public LocalDate getExpirationDate() {
     return expirationDate;
   }
 
+  /**
+   * Sets the expiration date of this object.
+   *
+   * @param expirationDate the new expiration date to set
+   */
   public void setExpirationDate(LocalDate expirationDate) {
     this.expirationDate = expirationDate;
   }
 
+  /**
+   * Returns the list of licenses associated with this object.
+   *
+   * @return a List of LicenseEnum objects representing the licenses
+   */
   public List<LicenseEnum> getLicenses_list() {
     return licenses_list;
   }
 
+  /**
+   * Sets the list of licenses associated with this object.
+   *
+   * @param licenses_list a List of LicenseEnum objects representing the licenses
+   */
   public void setLicenses_list(List<LicenseEnum> licenses_list) {
     this.licenses_list = licenses_list;
   }
 
+  /**
+   * Retrieves the driver associated with this License object.
+   *
+   * @return the Driver object representing the driver
+   */
   public Driver getDriver() {
     return driver;
   }
 
+  /**
+   * Sets the driver associated with this object.
+   *
+   * @param driver the Driver object representing the driver to set
+   */
   public void setDriver(Driver driver) {
     this.driver = driver;
   }
 
+  /**
+   * Returns a string representation of the License object.
+   *
+   * @return a string representation of the License object
+   */
   @Override
   public String toString() {
     return "License [id=" + id + ", licenseNumber=" + licenseNumber + ", issueDate=" + issueDate + ", expirationDate="
